@@ -11,7 +11,7 @@ public class DreamJoApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("DreamJournal.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("src/main/resources/dreamjo/DreamJournal.fxml"));
             Parent root = loader.load();
 
             Scene scene = new Scene(root, 800, 600);

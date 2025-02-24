@@ -13,7 +13,7 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.swing.text.html.ListView;
+import javafx.scene.control.ListView;
 
 public class DreamJournalController {
     @FXML
