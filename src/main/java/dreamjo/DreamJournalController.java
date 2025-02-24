@@ -10,10 +10,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import javafx.scene.control.ListView;
 
 public class DreamJournalController {
     @FXML
@@ -35,17 +34,26 @@ public class DreamJournalController {
     private TextField searchField;
 
     @FXML
-    private ListView<String> dreamListView;
+    private ListView<DreamEntry> dreamListView; // Change to DreamEntry
 
-    private ObservableList<String> dreamList = FXCollections.observableArrayList();
+    private ObservableList<DreamEntry> dreamList = FXCollections.observableArrayList();
 
     private CSVHandler csvHandler;
-    private static final String CSV_FILE_PATH = "dream_journal.csv";
 
     @FXML
     public void initialize() {
-        csvHandler = new CSVHandler(CSV_FILE_PATH);
-        loadDreams();
+        csvHandler = new CSVHandler("dream_journal.csv");
+        try {
+            loadDreams();
+            dreamListView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+                if (newSelection != null) {
+                    showDreamDetails(newSelection);
+                }
+            });
+        } catch (IOException e) {
+            showAlert("Error", "Failed to load dream entries. Please check the CSV file.");
+            e.printStackTrace(); // Consider logging instead
+        }
     }
 
     @FXML
@@ -64,7 +72,10 @@ public class DreamJournalController {
         try {
             LocalTime time = LocalTime.parse(timeString, DateTimeFormatter.ofPattern("HH:mm"));
             LocalDateTime dateTime = LocalDateTime.of(date, time);
-            List<String> keywordList = List.of(keywords.split(";"));
+            List<String> keywordList = Arrays.stream(keywords.split(";"))
+                    .map(String::trim)
+                    .filter(keyword -> !keyword.isEmpty()) // filtering out empty keywords
+                    .collect(Collectors.toList());
 
             DreamEntry entry = new DreamEntry(dateTime, description, emotion, keywordList);
             csvHandler.writeEntry(entry);
@@ -74,7 +85,7 @@ public class DreamJournalController {
         } catch (DateTimeParseException e) {
             showAlert("Error", "Invalid time format. Please use HH:mm.");
         } catch (IOException e) {
-            showAlert("Error", "Error writing to CSV file.");
+            showAlert("Error", "Failed to save dream entry. Please check file permissions or disk space.");
             e.printStackTrace();
         }
     }
@@ -93,26 +104,19 @@ public class DreamJournalController {
             displayEntries(matchingEntries);
 
         } catch (IOException e) {
-            showAlert("Error", "Error reading from CSV file.");
+            showAlert("Error", "Failed to search dream entries. Please check the CSV file.");
             e.printStackTrace();
         }
     }
 
-    private void loadDreams() {
-        try {
-            List<DreamEntry> entries = csvHandler.readEntries();
-            displayEntries(entries);
-        } catch (IOException e) {
-            showAlert("Error", "Error loading dreams from CSV file.");
-            e.printStackTrace();
-        }
+    private void loadDreams() throws IOException {
+        List<DreamEntry> entries = csvHandler.readEntries();
+        displayEntries(entries);
     }
 
     private void displayEntries(List<DreamEntry> entries) {
         dreamList.clear();
-        for (DreamEntry entry : entries) {
-            dreamList.add(entry.toString());
-        }
+        dreamList.addAll(entries); // Add DreamEntry objects
         dreamListView.setItems(dreamList);
     }
 
@@ -128,6 +132,18 @@ public class DreamJournalController {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    private void showDreamDetails(DreamEntry entry) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Dream Details");
+        alert.setHeaderText(entry.getDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+        alert.setContentText(
+                "Emotion: " + entry.getEmotion() + "\n" +
+                "Keywords: " + String.join(", ", entry.getKeywords()) + "\n" +
+                "Description: " + entry.getDescription()
+        );
         alert.showAndWait();
     }
 }

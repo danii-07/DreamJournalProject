@@ -31,6 +31,7 @@ public class CSVHandler {
     }
 
     public List<DreamEntry> readEntries() throws IOException {
+        System.out.println("CSV File Path: " + csvFilePath);
         List<DreamEntry> entries = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
             String line;
