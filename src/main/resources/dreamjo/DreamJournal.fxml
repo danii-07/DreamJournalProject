@@ -17,77 +17,86 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dreamjo.DreamJournalController">
     <top>
-        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="29.0" prefWidth="278.0" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Dream Journal" textAlignment="CENTER" textFill="#295c97" BorderPane.alignment="CENTER">
+        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="29.0" prefWidth="278.0" style="-fx-font-size: 24px; " text="Dream Journal" textAlignment="CENTER" textFill="#295c97" BorderPane.alignment="CENTER">
             <BorderPane.margin>
                 <Insets bottom="10.0" top="10.0" />
             </BorderPane.margin>
-         <font>
-            <Font name="Affectionately Yours" size="22.0" />
-         </font>
+            <font>
+                <Font name="Arial" size="30.0" />
+            </font>
         </Label>
     </top>
     <center>
-        <GridPane hgap="10.0" vgap="10.0">
+        <GridPane hgap="15.0" vgap="15.0">
             <padding>
-                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
             </padding>
             <Label text="Date:" textFill="#295c97" GridPane.columnIndex="0" GridPane.rowIndex="0">
-            <font>
-               <Font name="American Typewriter" size="13.0" />
-            </font></Label>
+                <font>
+                    <Font name="American Typewriter" size="14.0" />
+                </font>
+            </Label>
             <DatePicker fx:id="datePicker" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-            <Label prefHeight="17.0" prefWidth="39.0" text="Time:" textFill="#295c97" GridPane.columnIndex="2" GridPane.rowIndex="0">
-            <font>
-               <Font name="American Typewriter" size="13.0" />
-            </font></Label>
+            <Label text="Time:" textFill="#295c97" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                <font>
+                    <Font name="American Typewriter" size="14.0" />
+                </font>
+            </Label>
             <TextField fx:id="timeField" GridPane.columnIndex="3" GridPane.rowIndex="0" />
             <Label text="Emotion:" textFill="#295c97" GridPane.columnIndex="0" GridPane.rowIndex="1">
-            <font>
-               <Font name="American Typewriter" size="13.0" />
-            </font></Label>
+                <font>
+                    <Font name="American Typewriter" size="14.0" />
+                </font>
+            </Label>
             <TextField fx:id="emotionField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Keywords:" textFill="#295c97" GridPane.columnIndex="2" GridPane.rowIndex="1">
-            <font>
-               <Font name="American Typewriter" size="13.0" />
-            </font></Label>
+                <font>
+                    <Font name="American Typewriter" size="14.0" />
+                </font>
+            </Label>
             <TextField fx:id="keywordsField" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <Label text="Description:" textFill="#295c97" GridPane.columnIndex="0" GridPane.rowIndex="2">
-            <font>
-               <Font name="American Typewriter" size="13.0" />
-            </font></Label>
-            <TextArea fx:id="descriptionArea" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="2" />
-            <Button onAction="#addDreamEntry" text="Add Entry" textFill="#295c97" GridPane.columnIndex="1" GridPane.rowIndex="4">
-            <font>
-               <Font name="American Typewriter" size="12.0" />
-            </font></Button>
-         <columnConstraints>
-            <ColumnConstraints />
-            <ColumnConstraints />
-            <ColumnConstraints />
-            <ColumnConstraints />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-         </rowConstraints>
+                <font>
+                    <Font name="American Typewriter" size="14.0" />
+                </font>
+            </Label>
+            <TextArea fx:id="descriptionArea" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="2" prefHeight="150.0"/>
+            <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="4">
+                <Button onAction="#addDreamEntry" text="Add Entry" textFill="#295c97">
+                    <font>
+                        <Font name="American Typewriter" size="13.0" />
+                    </font>
+                </Button>
+            </HBox>
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
         </GridPane>
     </center>
     <right>
-        <VBox alignment="CENTER" spacing="10.0">
+        <VBox alignment="TOP_CENTER" spacing="15.0">
             <padding>
-                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
             </padding>
-            <HBox spacing="5.0">
+            <HBox spacing="10.0" alignment="CENTER">
                 <TextField fx:id="searchField" promptText="Search..." HBox.hgrow="ALWAYS" />
                 <Button onAction="#searchDreams" text="Search" textFill="#295c97">
-               <font>
-                  <Font name="American Typewriter" size="12.0" />
-               </font></Button>
+                    <font>
+                        <Font name="American Typewriter" size="13.0" />
+                    </font>
+                </Button>
             </HBox>
-            <ListView fx:id="dreamListView" VBox.vgrow="ALWAYS" />
+            <ListView fx:id="dreamListView" VBox.vgrow="ALWAYS" prefWidth="250.0"/>
         </VBox>
     </right>
 </BorderPane>
