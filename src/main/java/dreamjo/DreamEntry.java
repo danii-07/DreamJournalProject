@@ -2,17 +2,17 @@ package dreamjo;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
+import java.util.List; // importing the list interface for handling lists of strings.
 
-public class DreamEntry {
+public class DreamEntry { // defining what a dreamEntry is and what it should contain and how. they all have the final cause they can only be set once.
 
     private final LocalDateTime dateTime;
     private final String description;
     private final String emotion;
-    private final List<String> keywords;
+    private final List<String> keywords; // this stores a list of keywords associated with the dream entry.
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public DreamEntry(LocalDateTime dateTime, String description, String emotion, List<String> keywords) {
+    public DreamEntry(LocalDateTime dateTime, String description, String emotion, List<String> keywords) { // the constructor of when a new dreamEntry is created.
         this.dateTime = dateTime;
         this.description = description;
         this.emotion = emotion;
@@ -38,6 +38,6 @@ public class DreamEntry {
     @Override
     public String toString() {
         return String.format("%s - %s", dateTime.format(FORMATTER), description);
-    }
+    } // finally it returns a string representation of the DreamEntry object.
     
 }
