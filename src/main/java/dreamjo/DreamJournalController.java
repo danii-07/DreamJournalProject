@@ -137,7 +137,7 @@ public class DreamJournalController {
 
     private void showDreamDetails(DreamEntry entry) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Dream Details");
+        alert.setTitle("your dream");
         alert.setHeaderText(entry.getDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
         alert.setContentText(
                 "Emotion: " + entry.getEmotion() + "\n" +

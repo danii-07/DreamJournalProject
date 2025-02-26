@@ -22,7 +22,11 @@ public class CSVHandler {
             if (!fileExists) {
                 writer.write("DateTime,Description,Emotion,Keywords\n");
             }
-            writer.write(String.format("%s,%s,%s,%s\n",
+            // adding a newline character before writing the new entry
+            if (fileExists && new File(csvFilePath).length() > 0) {
+                writer.write("\n");
+            }
+            writer.write(String.format("%s,%s,%s,%s",
                     entry.getDateTime().format(FORMATTER),
                     entry.getDescription().replace(",", ";"),
                     entry.getEmotion().replace(",", ";"),
@@ -49,5 +53,4 @@ public class CSVHandler {
         }
         return entries;
     }
-    
 }
